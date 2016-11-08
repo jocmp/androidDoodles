@@ -60,13 +60,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:paddingTop="16dp"
-                android:text="Picasso"
+                android:text="File URI"
                 android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="18sp" />
 
             <co.josiahcampbell.doodles.gallery.PhotoView
                 android:id="@+id/picasso_image"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:paddingTop="16dp"
+                android:text="Content URI"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp" />
+
+            <co.josiahcampbell.doodles.gallery.PhotoView
+                android:id="@+id/content_image"
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
 

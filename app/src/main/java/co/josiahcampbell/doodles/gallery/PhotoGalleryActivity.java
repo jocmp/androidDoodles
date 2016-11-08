@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,10 @@ import static java.lang.String.format;
 public class PhotoGalleryActivity extends AppCompatActivity {
 
     PhotoView picassoImage;
+    PhotoView contentImage;
 
     List<String> fileLocations;
+    List<String> contentLocations;
 
     int currentIndex;
 
@@ -31,6 +34,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
         picassoImage = (PhotoView) findViewById(R.id.picasso_image);
+        contentImage = (PhotoView) findViewById(R.id.content_image);
         TextView dcimText = (TextView) findViewById(R.id.directory_text);
         TextView picturesText = (TextView) findViewById(R.id.pictures_text);
 
@@ -41,8 +45,21 @@ public class PhotoGalleryActivity extends AppCompatActivity {
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath()));
 
 
+        contentLocations = new ArrayList<>();
         fileLocations = new ArrayList<>();
+
         currentIndex = 0;
+
+
+        String readable = isExternalStorageReadable()
+                ? "readable (this is good.)" : "not readable. :/ something's wrong...";
+        Toast.makeText(this, format("External media is %s", readable), Toast.LENGTH_LONG).show();
+    }
+
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
     }
 
     @Override
@@ -53,13 +70,15 @@ public class PhotoGalleryActivity extends AppCompatActivity {
 
     @NeedsPermission(READ_EXTERNAL_STORAGE)
     public void refreshImages() {
+        contentLocations.addAll(PhotoLocator.getContentLocations(this));
         fileLocations.addAll(PhotoLocator.getPhotoLocations(this));
         if (fileLocations.isEmpty()) return;
-        setImages(fileLocations.get(currentIndex));
+        setImages();
     }
 
-    private void setImages(String fileLocation) {
-        picassoImage.bind(fileLocation);
+    private void setImages() {
+        picassoImage.bind(fileLocations.get(currentIndex));
+        contentImage.bind(contentLocations.get(currentIndex));
     }
 
     public void setPreviousImage(View view) {
@@ -71,7 +90,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         } else {
             currentIndex--;
         }
-        setImages(fileLocations.get(currentIndex));
+        setImages();
     }
 
 
@@ -84,7 +103,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         } else {
             currentIndex++;
         }
-        setImages(fileLocations.get(currentIndex));
+        setImages();
     }
 
     @Override
@@ -92,5 +111,4 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PhotoGalleryActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
-
 }
