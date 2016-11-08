@@ -3,7 +3,6 @@ package co.josiahcampbell.doodles.gallery;
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
@@ -50,37 +49,5 @@ public class PhotoLocator {
         return fileLocations;
     }
 
-
-    public static List<String> getPhotoLocationss(Activity activity) {
-        String camera = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DCIM).getAbsolutePath();
-        String pictures = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES).getAbsolutePath();
-        final String[] projection = {MediaStore.Images.Media.DATA};
-        final String selection = MediaStore.Images.Media.BUCKET_ID + " = ?";
-        final String[] selectionArgs = {camera};
-        final Cursor cursor = activity.getContentResolver().query(EXTERNAL_CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                null);
-
-        if (cursor == null) {
-            return new ArrayList<>();
-        }
-
-        List<String> results = new ArrayList<>();
-
-        if (cursor.moveToFirst()) {
-            final int dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            do {
-                final String data = cursor.getString(dataColumn);
-                results.add(data);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        return results;
-    }
 
 }

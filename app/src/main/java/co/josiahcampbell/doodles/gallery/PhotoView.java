@@ -1,6 +1,7 @@
 package co.josiahcampbell.doodles.gallery;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -22,12 +23,14 @@ public class PhotoView extends FrameLayout {
 
         locationText = (TextView) findViewById(R.id.location_text);
         imageView = (ImageView) findViewById(R.id.image_view);
-
-
     }
 
     public void bind(String fileLocation) {
-        Picasso.with(getContext()).load(fileLocation).into(imageView);
+        Picasso.with(getContext())
+                .load(fileLocation)
+                .config(Bitmap.Config.RGB_565)
+                .error(R.drawable.ic_block_black)
+                .into(imageView);
         locationText.setText(fileLocation);
     }
 }

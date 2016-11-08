@@ -1,9 +1,11 @@
 package co.josiahcampbell.doodles.gallery;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static java.lang.String.format;
 
 @RuntimePermissions
 public class PhotoGalleryActivity extends AppCompatActivity {
@@ -28,6 +31,15 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
         picassoImage = (PhotoView) findViewById(R.id.picasso_image);
+        TextView dcimText = (TextView) findViewById(R.id.directory_text);
+        TextView picturesText = (TextView) findViewById(R.id.pictures_text);
+
+        dcimText.setText(format("DCIM: %s",
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()));
+
+        picturesText.setText(format("Pictures: %s",
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath()));
+
 
         fileLocations = new ArrayList<>();
         currentIndex = 0;
