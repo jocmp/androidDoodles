@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+        // maxScroll returns the scroll range of all children
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
 
