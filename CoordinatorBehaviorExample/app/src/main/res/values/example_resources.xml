@@ -2,8 +2,8 @@
 <resources>
 
     <!-- colors -->
-    <color name="primary">#785447</color>
-    <color name="primaryDark">#5B3F36</color>
+    <color name="primary">@android:color/white</color>
+    <color name="primaryDark">#757575</color>
 
     <dimen name="spacing_normal">16dp</dimen>
 
@@ -15,9 +15,8 @@
 
     <!-- strings -->
     <string name="app_name">Coordinator example</string>
-    <string name="quila_name">Quila</string>
-    <string name="quila_tagline">I love bones and slippers</string>
-    <string name="quila_name2">Quila!</string>
+    <string name="name">Tester tester</string>
+    <string name="name2">Tester tester</string>
     <string name="lorem">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. Pellentesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. Etiam ac tristique sem, id commodo justo. Phasellus congue tincidunt lectus, at dignissim ligula maximus eu. Quisque interdum nunc eget tellus bibendum suscipit. Phasellus feugiat ultricies posuere. Nullam porta accumsan velit, ut rutrum massa fermentum eu. Nunc ac bibendum nunc. Mauris eu ultricies ipsum. Ut id dolor dui. Pellentesque dictum dui vel tempus maximus. Vivamus non nisi quis libero scelerisque pretium. Ut eu tristique justo. Sed pellentesque placerat quam, ut ultricies turpis feugiat a. Aliquam a volutpat risus.
 
